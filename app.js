@@ -9,11 +9,33 @@ app.get('/', function(req, res){
   var date = new Date();
   var currrentDay = date.getDay();
   var day = '';
-  if(currrentDay === 0 || currrentDay === 6){
-    day = 'Weekend';
-  }else{
-    day = 'Weekday';
+  switch(currrentDay){
+    case 0:
+      day = "Sunday";
+      break;
+    case 1:
+      day = "Monday";
+      break;
+    case 2:
+      day = "Tuesday";
+      break;
+    case 3:
+      day = "Wednesday";
+      break;
+    case 4:
+      day = "Thursday";
+      break;
+    case 5:
+      day = "Friday";
+      break;
+    case 6:
+      day = "Saturday";
+      break;
+    default:
+      console.log("Hmm.. Something went wrong. It seems like there's " + currrentDay + " days");
+      break;
   }
+
 
   res.render('list', {day: day});
 });
