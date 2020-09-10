@@ -4,8 +4,8 @@ const date = require(__dirname + '/date.js');
 
 const app = express();
 
-let newItems =["Food", "Cook", "Eat"];
-let workItems = [];
+const newItems =["Food", "Cook", "Eat"];
+const workItems = [];
 let newItem = '';
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,9 +14,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-
-  let day = date.getDay();
-  res.render('list', {listTitle: day, newListItems: newItems});
+  res.render('list', {listTitle: date.getDate(), newListItems: newItems});
 });
 
 app.get('/work', function(req, res){
