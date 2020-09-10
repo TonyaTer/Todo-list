@@ -3,20 +3,30 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+var newItems =[];
+var newItem = '';
+
 app.use(bodyParser.urlencoded({extended: true}));
-app.use('view engine', 'ejs');
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-  var today = new Date();
-  var currentDay = today.getDay();
-  var day='';
-  if(currentDay === 6 || currentDay === 0){
-    day = 'Weekend';
-  }else{
-    day = 'Weekday';
+  var date = new Date();
+
+  var options ={
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
   };
 
-  // res.render('list', {day: day});
+  var day = date.toLocaleDateString('en-US', options);
+
+  res.render('list', {day: day, newListItems: newItems});
+});
+
+app.post('/', function(req, res){
+  newItem = req.body.newItem;
+  newItems.push(newItem);
+  res.redirect('/');
 });
 
 app.listen(3000, function(){
